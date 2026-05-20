@@ -6,6 +6,7 @@ public record PaintHistoryResponse(
         Integer id,
         String result,
         UUID userId,
+        String userName,
         String surface,
         String paintingMethod
 
