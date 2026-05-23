@@ -38,20 +38,17 @@ public class PaintHistoryController {
     @Autowired
     private UserRequestProducer userRequestProducer;
 
-    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    @Secured({"ROLE_USER"})
     @PostMapping
     public ResponseEntity<PaintHistoryResponse> insert(
 
             @RequestBody @Valid PaintHistoryRequest request,
 
-            Authentication authentication,
-
             UriComponentsBuilder uriBuilder
     ) {
 
-        String email = authentication.getName();
+        String email = request.email();
         UserResponseEvent user = userRequestProducer.getUserByEmail(email);
+
 
         Surface surface = surfaceService.findById(request.surfaceId());
         PaintingMethod paintingMethod = paintingMethodService.findById(request.paintingMethodId());
@@ -77,15 +74,10 @@ public class PaintHistoryController {
         ).body(response);
     }
 
-    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    @Secured({"ROLE_USER"})
     @GetMapping
     public ResponseEntity<List<PaintHistory>> get() {
         return ResponseEntity.ok(paintHistoryService.findAll());
     }
-
-    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    @Secured({"ROLE_USER"})
 
 
     @GetMapping("/{id}")

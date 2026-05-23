@@ -21,6 +21,8 @@ public class UserRequestConsumer {
             UserRequestEvent event
     ) {
 
+        System.out.println("EMAIL RECEBIDO: " + event.email());
+
         User user = repository
                 .findByEmail(event.email())
                 .orElseThrow();
