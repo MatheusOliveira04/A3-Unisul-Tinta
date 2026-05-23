@@ -1,52 +1,27 @@
 # Sistema Tinta
 
-## Stack
+## Stack Tecnológica
 
-- Java 21
-- Spring Boot
-- Spring Security + JWT
-- MySQL 8
-- ActiveMQ
-- Docker
-- Docker Compose
-
----
-
-# Subindo o Projeto
-
-## Pré-requisitos
-
-- Docker
-- Docker Compose
+- **Linguagem:** Java 21
+- **Framework:** Spring Boot
+- **Segurança:** Spring Security + JWT
+- **Banco de Dados:** MySQL 8
+- **Mensageria:** ActiveMQ
+- **Containerização:** Docker & Docker Compose
 
 ---
 
-## Executar os containers
+## Subindo o Projeto
 
-Na raiz do projeto execute:
+### Pré-requisitos
+
+Antes de iniciar, certifique-se de ter instalado em sua máquina:
+- Docker
+- Docker Compose
+
+### Executar os Containers
+
+Na raiz do projeto (onde está o arquivo `docker-compose.yml`), execute o comando abaixo para buildar e iniciar os serviços:
 
 ```bash
 docker compose up --build
-
-Para subir em background:
-
-docker compose up -d --build
-Serviços
-Serviço	Porta
-auth-api	8080
-historico-api	8081
-MySQL	3306
-ActiveMQ	61616
-ActiveMQ Web	8161
-ActiveMQ Web
-http://localhost:8161
-
-Usuário:
-
-admin
-
-Senha:
-
-admin
-Parar os containers
-docker compose down
