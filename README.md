@@ -1,27 +1,68 @@
-# Sistema Tinta
+# Projeto Tintas
 
-## Stack Tecnológica
+## Stack
 
-- **Linguagem:** Java 21
-- **Framework:** Spring Boot
-- **Segurança:** Spring Security + JWT
-- **Banco de Dados:** MySQL 8
-- **Mensageria:** ActiveMQ
-- **Containerização:** Docker & Docker Compose
+- **Java 21**
+- **Spring Boot**
+- **Spring Security + JWT**
+- **Spring JMS**
+- **ActiveMQ**
+- **MySQL 8**
+- **Docker + Docker Compose**
 
 ---
 
-## Subindo o Projeto
+## Como subir o projeto
 
-### Pré-requisitos
+### 1. Gerar os arquivos `.jar`
 
-Antes de iniciar, certifique-se de ter instalado em sua máquina:
-- Docker
-- Docker Compose
+Execute o comando abaixo em cada API:
 
-### Executar os Containers
+#### Auth API
 
-Na raiz do projeto (onde está o arquivo `docker-compose.yml`), execute o comando abaixo para buildar e iniciar os serviços:
+```bash
+cd tinta-auth/auth-api
+mvn clean package -DskipTests
+```
+
+### Histórico API
+
+```bash
+cd tinta-core/historico-api
+mvn clean package -DskipTests
+```
+
+### 2. Voltar para a raiz do projeto
+
+```bash
+cd ../..
+```
+
+Ou volte até a pasta onde está o arquivo docker-compose.yml
+
+### 3. Subir os containers
 
 ```bash
 docker compose up --build
+```
+
+## Serviços
+
+```
+| Serviço              | Porta  |
+|----------------------|--------|
+| Auth API             | 8080   |
+| Histórico API        | 8081   |
+| MySQL                | 3306   |
+| ActiveMQ             | 61616  |
+| Painel ActiveMQ      | 8161   |
+```
+
+## Acessar ActiveMQ
+
+- **Usuário:** `admin`
+- **Senha:** `admin`
+- **URL:** [http://localhost:8161](http://localhost:8161)
+
+
+

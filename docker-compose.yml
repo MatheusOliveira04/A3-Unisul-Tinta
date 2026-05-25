@@ -28,7 +28,7 @@ services:
       - mysql_data:/var/lib/mysql
 
   auth-api:
-    build: ./auth-api
+    build: ./tinta-auth
     container_name: auth-api
 
     environment:
@@ -46,7 +46,7 @@ services:
       - "8080:8080"
 
   historico-api:
-    build: ./historico-api
+    build: ./tinta-core
     container_name: historico-api
 
     environment:
