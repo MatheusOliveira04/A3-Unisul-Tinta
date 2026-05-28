@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - As cores da sua vida estão aqui</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-pic">👤</div>
+            <p class="user-name">Visitante</p>
+        </div>
+        <a href="../index.html">Início</a>
+        <a href="../login/login.html" class="btn-guia">Login</a>
+        <a href="../registro/registro.html" class="btn-guia">Registre-se</a>
+        <a href="../guia/guia.html" class="btn-guia">Guia prático de pintura</a>
+    </div>
+    <div class="main-wrapper">
+        <div class="header">
+            <img src="imagem 0004.jpg" alt="Banner Login" class="banner-img">
+        </div>
+        <div class="content">
+            <h1 class="main-title">Acesse sua Conta</h1>
+            <div class="container">
+                <form id="loginForm" onsubmit="event.preventDefault(); alert('Login efetuado com sucesso (Simulação)!');">
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="senha">Senha:</label>
+                        <input type="password" id="senha" placeholder="Digite sua senha" required>
+                    </div>
+                    <button type="submit" class="btn-gerar">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

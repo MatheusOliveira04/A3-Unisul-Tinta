@@ -27,41 +27,5 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  auth-api:
-    build: ./tinta-auth
-    container_name: auth-api
-
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/tinta?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: admin
-
-      SPRING_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
-
-    depends_on:
-      - mysql
-      - activemq
-
-    ports:
-      - "8080:8080"
-
-  historico-api:
-    build: ./tinta-core
-    container_name: historico-api
-
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/tinta?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: admin
-
-      SPRING_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
-
-    depends_on:
-      - mysql
-      - activemq
-
-    ports:
-      - "8081:8081"
-
 volumes:
   mysql_data:
