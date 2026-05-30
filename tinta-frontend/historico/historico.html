@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Consultas - As cores da sua vida</title>
+    <link rel="stylesheet" href="historico.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-pic">👤</div>
+            <p class="user-name">Visitante</p>
+        </div>
+        <a href="../index.html">Início</a>
+        <a href="../login/login.html" class="btn-guia">Login</a>
+        <a href="../registro/registro.html" class="btn-guia">Registre-se</a>
+        <a href="../guia/guia.html" class="btn-guia">Guia prático de pintura</a>
+        <a href="../historico/historico.html" class="btn-guia btn-ativo">Histórico de pintura</a>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="header">
+            <img src="../imagem 0004.jpg" alt="Banner Histórico" class="banner-img">
+        </div>
+
+        <div class="content">
+            <h1 class="main-title">Seu Histórico de Pintura</h1>
+            
+            <div class="container">
+                <p class="historico-subtitle">Confira abaixo as instruções técnicas geradas para as suas superfícies.</p>
+                
+                <div class="table-responsive">
+                    <table class="historico-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo de Superfície</th>
+                                <th>Estado Atual</th>
+                                <th style="text-align: center;">Método de Pintura</th>
+                                <th>Resultado Gerado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historicoCorpo">
+                            <tr>
+                                <td colspan="4" class="table-loading">Carregando seus registros...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="historico.js"></script>
+</body>
+</html>

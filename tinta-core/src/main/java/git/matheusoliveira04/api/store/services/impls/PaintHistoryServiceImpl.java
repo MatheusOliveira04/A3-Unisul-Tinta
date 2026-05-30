@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PaintHistoryServiceImpl implements PaintHistoryService {
@@ -33,6 +34,12 @@ public class PaintHistoryServiceImpl implements PaintHistoryService {
     @Override
     public PaintHistory findById(Integer id) {
         return repository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("History not found"));
+    }
+
+    @Override
+    public PaintHistory findByUserId(UUID id) {
+        return repository.findFirstByUserIdOrderByIdDesc(id)
                 .orElseThrow(() -> new ObjectNotFoundException("History not found"));
     }
 }

@@ -114,6 +114,41 @@ async function carregarEstadosPorSuperficie() {
 }
 
 // ====================== MÉTODO 3: CARREGAR MÉTODOS DE PINTURA ======================
+// async function carregarMetodosPintura() {
+//     const selectMetodo = document.getElementById("metodo");
+    
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/painting-method`);
+//         if (!response.ok) throw new Error('Falha ao buscar métodos de pintura');
+
+//         const dados = await response.json();
+//         selectMetodo.innerHTML = '<option value="" disabled selected>Selecione o método...</option>';
+
+//         if (Array.isArray(dados)) {
+//             dados.forEach(item => {
+//                 const option = document.createElement("option");
+                
+//                 // if (typeof item === 'string') {
+//                 //     option.value = item.toLowerCase();
+//                 //     option.text = item.charAt(0).toUpperCase() + item.slice(1);
+//                 // } else if (item.description) {
+//                     option.value = item.description.toLowerCase();
+//                     option.text = item.description;
+//                 // } else if (item.value && item.label) {
+//                 //     option.value = item.value.toLowerCase();
+//                 //     option.text = item.label;
+//                 // }
+                
+//                 selectMetodo.appendChild(option);
+//             });
+//         }
+//     } catch (error) {
+//         console.error('Erro ao carregar métodos de pintura:', error);
+//         selectMetodo.innerHTML = '<option value="" disabled selected>Erro ao carregar métodos</option>';
+//     }
+// }
+
+// ====================== MÉTODO 3: CARREGAR MÉTODOS DE PINTURA ======================
 async function carregarMetodosPintura() {
     const selectMetodo = document.getElementById("metodo");
     
@@ -128,16 +163,13 @@ async function carregarMetodosPintura() {
             dados.forEach(item => {
                 const option = document.createElement("option");
                 
-                // if (typeof item === 'string') {
-                //     option.value = item.toLowerCase();
-                //     option.text = item.charAt(0).toUpperCase() + item.slice(1);
-                // } else if (item.description) {
-                    option.value = item.description.toLowerCase();
-                    option.text = item.description;
-                // } else if (item.value && item.label) {
-                //     option.value = item.value.toLowerCase();
-                //     option.text = item.label;
-                // }
+                option.value = item.description.toLowerCase();
+                option.text = item.description;
+                
+                // NOVO: Guarda o ID numérico do método de pintura no HTML
+                if (item.id) {
+                    option.setAttribute("data-id", item.id);
+                }
                 
                 selectMetodo.appendChild(option);
             });
@@ -145,6 +177,53 @@ async function carregarMetodosPintura() {
     } catch (error) {
         console.error('Erro ao carregar métodos de pintura:', error);
         selectMetodo.innerHTML = '<option value="" disabled selected>Erro ao carregar métodos</option>';
+    }
+}
+
+function obterCookie(nome) {
+    const cookies = document.cookie.split('; ');
+    const cookieEncontrado = cookies.find(row => row.startsWith(nome + '='));
+    return cookieEncontrado ? decodeURIComponent(cookieEncontrado.split('=')[1]) : null;
+}
+
+// ====================== MÉTODO 4: SALVAR HISTÓRICO DE CONSULTA ======================
+async function salvarHistoricoPintura(surfaceId, paintingMethodId, resultadoTexto) {
+    const token = obterCookie('auth_token');
+    const email = obterCookie('user_email');
+
+    // Se não houver token ou e-mail, ignora silenciosamente (usuário não logado)
+    if (!token || !email) {
+        console.log("Usuário não autenticado. O histórico não será salvo.");
+        return;
+    }
+
+    const historicoPayload = {
+        email: email,
+        surfaceId: parseInt(surfaceId),
+        paintingMethodId: parseInt(paintingMethodId),
+        result: resultadoTexto
+    };
+
+    console.log(historicoPayload);
+
+    try {
+        // Envia a requisição POST com a rota contendo barra dupla conforme especificado
+        const response = await fetch(`${API_BASE_URL}/paint-history`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Padrão recomendado para APIs com JWT
+            },
+            body: JSON.stringify(historicoPayload)
+        });
+
+        if (!response.ok) {
+            throw new Error('Não foi possível gravar o registro no histórico.');
+        }
+
+        console.log('Histórico de pintura salvo com sucesso no banco de dados!');
+    } catch (error) {
+        console.error('Erro ao salvar histórico:', error);
     }
 }
 
@@ -203,6 +282,16 @@ async function carregarMetodosPintura() {
         texto += "\n\nLembre-se: O solvente usado varia da tinta. Tintas Acrílicas usam Água; Esmaltes e Vernizes Sintéticos usam Aguarrás para diluição (para não perder o brilho) e Thinner para limpeza.";
 
         textarea.value = texto;
+
+        const selectEstado = document.getElementById("estado");
+        const selectMetodo = document.getElementById("metodo");
+
+        const surfaceId = selectEstado.value; 
+        const paintingMethodId = selectMetodo.options[selectMetodo.selectedIndex]?.getAttribute("data-id");
+
+        if (surfaceId && paintingMethodId) {
+            salvarHistoricoPintura(surfaceId, paintingMethodId, texto);
+        }
     }
 // ====================== INICIALIZAÇÃO ======================
 // Executa o método de carregar superfícies assim que a página abre

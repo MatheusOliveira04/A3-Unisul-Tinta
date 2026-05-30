@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/paint-history")
@@ -79,5 +80,10 @@ public class PaintHistoryController {
     @GetMapping("/{id}")
     public ResponseEntity<PaintHistory> findById(@PathVariable Integer id) {
         return ResponseEntity.ok(paintHistoryService.findById(id));
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<PaintHistory> findByUserId(@PathVariable String id) {
+        return ResponseEntity.ok(paintHistoryService.findByUserId(UUID.fromString(id)));
     }
 }

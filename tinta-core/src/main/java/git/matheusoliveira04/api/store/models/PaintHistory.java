@@ -18,7 +18,7 @@ public class PaintHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "ptht_result")
+    @Column(name = "ptht_result", length = 20000)
     private String result;
 
     @Column(name = "us_id")
