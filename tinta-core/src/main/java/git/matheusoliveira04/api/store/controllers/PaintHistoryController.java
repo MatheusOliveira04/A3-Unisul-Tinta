@@ -46,7 +46,6 @@ public class PaintHistoryController {
         String email = request.email();
         UserResponseEvent user = userRequestProducer.getUserByEmail(email);
 
-
         Surface surface = surfaceService.findById(request.surfaceId());
         PaintingMethod paintingMethod = paintingMethodService.findById(request.paintingMethodId());
 
